@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/nav_graph"
+            app:startDestination="@id/movieListFragmentNav">
+
+    <fragment android:id="@+id/movieListFragmentNav"
+              android:name="com.santiago.themoviedbtest.features.movies.MovieListFragment"
+
+              android:label="MovieListFragment" app:popUpToInclusive="false">
+        <action android:id="@+id/showMovieDetail"
+                app:destination="@id/movieDetailFragment"
+                app:popUpToInclusive="false"/>
+    </fragment>
+
+    <fragment android:id="@+id/movieDetailFragment"
+              android:name="com.santiago.themoviedbtest.features.detailMovie.MovieDetailFragment"
+              android:label="MovieDetailFragment">
+        <argument android:name="movieId" app:argType="long"/>
+    </fragment>
+</navigation>
