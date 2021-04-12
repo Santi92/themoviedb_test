@@ -48,7 +48,7 @@ class ApiModule {
         val httpClient = OkHttpClient.Builder()
         httpClient.cache(cache)
         httpClient.addInterceptor(logging)
-        httpClient.addNetworkInterceptor(RequestInterceptor())
+        httpClient.interceptors().add(RequestInterceptor())
         httpClient.connectTimeout(30, TimeUnit.SECONDS)
         httpClient.readTimeout(30, TimeUnit.SECONDS)
         return httpClient.build()

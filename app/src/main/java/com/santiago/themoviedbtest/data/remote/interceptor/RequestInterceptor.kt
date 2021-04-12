@@ -10,7 +10,7 @@ class RequestInterceptor : Interceptor {
     @Throws(IOException::class)
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val originalUrl = originalRequest.url()
+        val originalUrl = originalRequest.url
         val apiKey = BuildConfig.API_KEY
         val url = originalUrl.newBuilder()
             .addQueryParameter("api_key", apiKey)
