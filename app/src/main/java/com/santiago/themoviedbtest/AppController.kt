@@ -7,8 +7,10 @@ import com.santiago.themoviedbtest.di.componet.DaggerAppComponent
 
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
 
+@HiltAndroidApp
 class AppController : Application(), HasActivityInjector {
 
     @Inject
@@ -18,10 +20,7 @@ class AppController : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
-        DaggerAppComponent.builder()
-            .application(this)
-            .build()
-            .inject(this)
+
 
     }
 }
