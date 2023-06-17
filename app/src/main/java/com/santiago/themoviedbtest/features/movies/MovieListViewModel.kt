@@ -7,9 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.santiago.themoviedbtest.data.Resource
 import com.santiago.themoviedbtest.data.local.entity.MovieEntity
 import com.santiago.themoviedbtest.data.repository.MovieRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
-
+@HiltViewModel
 class MovieListViewModel @Inject constructor(
     movieRepository: MovieRepository) : ViewModel() {
 

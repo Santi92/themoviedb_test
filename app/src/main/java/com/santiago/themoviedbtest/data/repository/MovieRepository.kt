@@ -1,10 +1,7 @@
 package com.santiago.themoviedbtest.data.repository
 
-import android.util.Log
-import androidx.lifecycle.LifecycleOwner
+
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
 
 import com.santiago.themoviedbtest.AppExecutors
 import com.santiago.themoviedbtest.data.NetworkBoundResource

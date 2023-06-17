@@ -6,15 +6,17 @@ import com.santiago.themoviedbtest.data.local.AppDatabase
 import com.santiago.themoviedbtest.data.local.dao.MovieDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-class DbModule {
-
+@InstallIn(SingletonComponent::class)
+object DbModule {
 
     @Provides
     @Singleton
-    internal fun provideDatabase(application: Application): AppDatabase {
+    fun provideDatabase(application: Application): AppDatabase {
         return Room.databaseBuilder(
             application, AppDatabase::class.java, "Entertainment.db")
             .allowMainThreadQueries().build()
@@ -23,7 +25,7 @@ class DbModule {
 
     @Provides
     @Singleton
-    internal fun provideMovieDao(appDatabase: AppDatabase): MovieDao {
+    fun provideMovieDao(appDatabase: AppDatabase): MovieDao {
         return appDatabase.movieDao()
     }
 }

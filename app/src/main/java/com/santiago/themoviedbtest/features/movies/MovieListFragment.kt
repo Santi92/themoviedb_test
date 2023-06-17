@@ -1,15 +1,13 @@
 package com.santiago.themoviedbtest.features.movies
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,18 +18,17 @@ import com.santiago.themoviedbtest.data.local.entity.MovieEntity
 import com.santiago.themoviedbtest.databinding.FragmentMovieListBinding
 import com.santiago.themoviedbtest.utils.FragmentNavigatorExtras
 import com.santiago.themoviedbtest.utils.autoCleared
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieListFragment: Fragment(){
 
     companion object {
         var binding: FragmentMovieListBinding? =  null
     }
-    @Inject
-    internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private lateinit var moviesListViewModel: MovieListViewModel
+    private val moviesListViewModel: MovieListViewModel by  viewModels()
 
 
 
@@ -39,13 +36,12 @@ class MovieListFragment: Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        AndroidSupportInjection.inject(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if (binding == null){
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie_list, container, false)
-            sharedElementReturnTransition = TransitionInflater.from(context).inflateTransition(R.transition.move)
+            sharedElementReturnTransition = TransitionInflater.from(requireContext()).inflateTransition(R.transition.move)
         }
 
         return binding!!.root
@@ -78,14 +74,10 @@ class MovieListFragment: Fragment(){
         binding!!.moviesList.layoutManager = GridLayoutManager(requireContext(), 2)
         binding!!.moviesList.adapter = moviesListAdapter
 
-
-
-
     }
 
 
     private fun initialiseViewModel() {
-        moviesListViewModel = ViewModelProviders.of(this, viewModelFactory).get(MovieListViewModel::class.java)
         moviesListViewModel.reload(true)
         moviesListViewModel.listMovie.observe(viewLifecycleOwner, Observer { resource ->
             if (resource!!.isLoading) {

@@ -1,6 +1,6 @@
 package com.santiago.themoviedbtest.di.module
 
-import android.app.Application
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.santiago.themoviedbtest.data.remote.LiveDataCallAdapterFactory
@@ -8,6 +8,9 @@ import com.santiago.themoviedbtest.data.remote.api.MovieApiService
 import com.santiago.themoviedbtest.data.remote.interceptor.RequestInterceptor
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,8 +22,8 @@ import javax.inject.Singleton
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-
 @Module
+@InstallIn(SingletonComponent::class)
 class ApiModule {
 
     @Provides
@@ -33,7 +36,7 @@ class ApiModule {
 
     @Provides
     @Singleton
-    internal fun provideCache(application: Application): Cache {
+    internal fun provideCache(@ApplicationContext application: Context): Cache {
         val cacheSize = (10 * 1024 * 1024).toLong() // 10 MB
         val httpCacheDirectory = File(application.cacheDir, "http-cache")
         return Cache(httpCacheDirectory, cacheSize)

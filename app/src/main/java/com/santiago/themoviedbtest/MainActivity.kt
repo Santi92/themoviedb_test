@@ -5,20 +5,17 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.santiago.themoviedbtest.databinding.ActivityMainBinding
-import dagger.android.AndroidInjection
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
+
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setupDataBinding()
     }
@@ -27,8 +24,4 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
     }
 
-
-    override fun supportFragmentInjector(): DispatchingAndroidInjector<Fragment> {
-        return dispatchingAndroidInjector
-    }
 }
